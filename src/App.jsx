@@ -7,12 +7,14 @@ import Services from "./components/Services";
 function App() {
   return (
     <>
-      <Header />
-      <Hero />
-      <Benefits />
-      <Collaboration />
-      <Services />
-      <ButtonGradient />
+      <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
+        <Header />
+        <Hero />
+        <Benefits />
+        <Collaboration />
+        <Services />
+        <ButtonGradient />
+      </div>
     </>
   );
 }
