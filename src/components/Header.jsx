@@ -7,10 +7,10 @@ import { HamburgerMenu } from "./design/Header";
 import { useState } from "react";
 
 export default function Header() {
-  const { hash } = useLocation();
   const [openNavigation, setOpenNavigation] = useState(false);
+  const pathname = useLocation();
 
-  const toggleNavigation = () => setOpenNavigation(prev => !prev);
+  const toggleNavigation = () => setOpenNavigation((prev) => !prev);
 
   const handleClick = () => {
     if (openNavigation) setOpenNavigation(false);
@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 border-b border-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm ${
+      className={`fixed top-0 left-0 w-full z-50  border-b border-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm ${
         openNavigation ? "bg-n-8" : "bg-n-8/90 backdrop-blur-sm"
       }`}
     >
@@ -33,21 +33,21 @@ export default function Header() {
           } fixed top-[5rem] left-0 right-0 bottom-0 bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}
         >
           <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
-            {navigation.map(({ id, url, title, onlyMobile }) => (
-              <NavLink
-                key={id}
-                to={url}
+            {navigation.map((item) => (
+              <a
+                key={item.id}
+                href={item.url}
                 onClick={handleClick}
-                className={({ isActive }) =>
-                  `block relative font-code text-2xl uppercase text-n-1 transition-colors hover:text-color-1 ${
-                    onlyMobile ? "lg:hidden" : ""
-                  } px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold ${
-                    isActive ? "z-2 lg:text-n-1" : "lg:text-n-1/50"
-                  } lg:leading-5 lg:hover:text-n-1 xl:px-12`
-                }
+                className={`block relative font-code text-2xl uppercase text-n-1 transition-colors hover:text-color-1 ${
+                  item.onlyMobile ? "lg:hidden" : ""
+                } px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold ${
+                  item.url === pathname.hash
+                    ? "z-2 lg:text-n-1"
+                    : "lg:text-n-1/50"
+                } lg:leading-5 lg:hover:text-n-1 xl:px-12`}
               >
-                {title}
-              </NavLink>
+                {item.title}
+              </a>
             ))}
           </div>
 
